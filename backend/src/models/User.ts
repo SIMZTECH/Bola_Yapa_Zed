@@ -1,0 +1,45 @@
+import {Schema,model,Types} from 'mongoose';
+
+interface IUser{
+    name:string,
+    email:string,
+    phone:number,
+    dob:string,
+    role:string,
+    photo:string,
+    team:string,
+    comments:Array<string>,
+    analytics:Array<number>,
+    isApproved:Boolean
+};
+
+const userSchema = new Schema<IUser>({
+    name:{type:String,required:true},
+    email:{type:String,require:true,unique:true},
+    phone:{type:Number},
+    dob:{type:String},
+    role:{
+        type:String,
+        enum:["fan","admin"],
+        default:"fan"
+    },
+    photo:{type:String},
+    team:{type:String},
+    comments:[{
+        type:Types.ObjectId,
+        ref:"Comments"
+    }],
+    analytics:[{
+        type:Types.ObjectId,
+        ref:"Analytics"
+    }],
+    isApproved:{
+        type:Boolean,
+        default:false
+    }
+
+});
+
+const User = model<IUser>("User",userSchema);
+
+export default User;
