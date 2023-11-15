@@ -7,28 +7,30 @@ interface ICoach{
     dob:string,
     role:string,
     photo:string,
-    team:string,
-    experience:Array<any>,
-    teamMembers:Array<any>,
-    comments:Array<string>,
+    team:any,//team id
+    experience:[],
+    comments:[],
     isApproved:Boolean
 };
 
-const userSchema = new Schema<ICoach>({
+const coachSchema = new Schema<ICoach>({
     name:{type:String,required:true},
     email:{type:String,require:true,unique:true},
     phone:{type:Number},
     dob:{type:String},
     role:{type:String},
     photo:{type:String},
-    team:{type:String},
-    teamMembers:[{
+    team:{
         type:Types.ObjectId,
-        ref:"TeamMembers"
-    }],
+        ref:"Team"
+    },
     experience:[{
         type:Types.ObjectId,
         ref:"CoachExperience"
+    }],
+    comments:[{
+        type:Types.ObjectId,
+        ref:"Comments"
     }],
     isApproved:{
         type:Boolean,
@@ -36,6 +38,6 @@ const userSchema = new Schema<ICoach>({
     }
 });
 
-const Coach = model<ICoach>("User",userSchema);
+const Coach = model<ICoach>("Coach",coachSchema);
 
 export default Coach;

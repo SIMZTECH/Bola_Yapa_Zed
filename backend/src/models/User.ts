@@ -7,7 +7,7 @@ interface IUser{
     dob:string,
     role:string,
     photo:string,
-    team:string,
+    team:any,
     comments:Array<string>,
     analytics:Array<number>,
     isApproved:Boolean
@@ -24,7 +24,10 @@ const userSchema = new Schema<IUser>({
         default:"fan"
     },
     photo:{type:String},
-    team:{type:String},
+    team:{
+        type:Types.ObjectId,
+        ref:"Team"
+    },
     comments:[{
         type:Types.ObjectId,
         ref:"Comments"

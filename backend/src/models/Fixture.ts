@@ -2,37 +2,33 @@ import {Schema,model,Types} from 'mongoose';
 
 interface IFixure{
     date:string,
-    stadiumName:string,
-    location:string,
     category:string,
-    // update line up from reference
-    away:String,
-    home:String,
-
+    awayTeam:any,//will contain the team deatils
+    homeTeam:any,//will contain the team deatils
     isMatchApproved:boolean
 };
 
-const userSchema = new Schema<IFixure>({
+const fixtureSchema = new Schema<IFixure>({
     date:{type:String},
-    stadiumName:{type:String,min:1,max:30},
-    location:{type:String,min:1,max:100},
     category:{
         type:String,
         enum:["derby","regular","madalas"],
         default:"regular"
     },
-    home:{
+    homeTeam:{
         type:Types.ObjectId,
-        ref:"HomeTeam"
+        ref:"Team"
     },
-    away:{
+    awayTeam:{
         type:Types.ObjectId,
-        ref:"AwayTeam"
+        ref:"Team"
     },
     isMatchApproved:{type:Boolean,default:false}
    
-});
+},
+{timestamps:true}
+);
 
-const Fixture = model<IFixure>("User",userSchema);
+const Fixture = model<IFixure>("Fixture",fixtureSchema);
 
 export default Fixture;
