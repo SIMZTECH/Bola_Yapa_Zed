@@ -5,6 +5,9 @@ import dotenv from 'dotenv';
 import mongoose from "mongoose";
 import { connectToDatabse } from "./src/util/Utili";
 
+// routes
+import authRoute from './src/routes/AuthRoute';
+
 dotenv.config();
 
 // TODO:Database methods
@@ -25,6 +28,11 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 
 // routes
+
+app.use("/auth/api/v1",authRoute);
+
+
+
 app.get("/",(req:Request,res:Response)=>{
     res.status(200).json({
         status:true,

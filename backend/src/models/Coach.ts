@@ -2,6 +2,7 @@ import {Schema,model,Types} from 'mongoose';
 
 interface ICoach{
     name:string,
+    password:string,
     email:string,
     phone:number,
     dob:string,
@@ -15,6 +16,7 @@ interface ICoach{
 
 const coachSchema = new Schema<ICoach>({
     name:{type:String,required:true},
+    password:{type:String,required:true},
     email:{type:String,require:true,unique:true},
     phone:{type:Number},
     dob:{type:String},
