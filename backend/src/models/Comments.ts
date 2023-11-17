@@ -1,6 +1,6 @@
 import {Schema,model,Types} from 'mongoose';
 
-interface IComment{
+export interface IComment{
     user:any,
     coach:any,
     message:string,

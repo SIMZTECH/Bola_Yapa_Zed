@@ -1,6 +1,6 @@
 import {Schema,model,Types} from 'mongoose';
 
-interface ITeam{
+export interface ITeam{
    teamName:string,
    logo:string,
    coach:any,//coach id

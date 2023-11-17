@@ -1,6 +1,6 @@
 import {Schema,model,Types} from 'mongoose';
 
-interface IUser{
+export interface IUser{
     name:string,
     email:string,
     password:string,
@@ -8,7 +8,7 @@ interface IUser{
     dob:string,
     role:string,
     photo:string,
-    team:any,
+    team:any,//team id
     comments:Array<string>,
     analytics:Array<number>,
     isApproved:Boolean

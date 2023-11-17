@@ -1,6 +1,6 @@
 import {Schema,model,Types} from 'mongoose';
 
-interface IFixure{
+export interface IFixure{
     date:string,
     category:string,
     awayTeam:any,//will contain the team deatils

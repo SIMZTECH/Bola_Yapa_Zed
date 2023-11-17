@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import mongoose from "mongoose";
 import { connectToDatabse } from "./src/util/Utili";
+import { authenticate,restrict } from "./src/auth/AuthVerify";
 
 // routes
 import authRoute from './src/routes/AuthRoute';
@@ -33,7 +34,7 @@ app.use("/auth/api/v1",authRoute);
 
 
 
-app.get("/",(req:Request,res:Response)=>{
+app.get("/",authenticate,restrict(["fan"]),(req:Request,res:Response)=>{
     res.status(200).json({
         status:true,
         message:"Welcome to typescript server"

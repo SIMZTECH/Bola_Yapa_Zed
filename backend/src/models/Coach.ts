@@ -1,6 +1,6 @@
 import {Schema,model,Types} from 'mongoose';
 
-interface ICoach{
+export interface ICoach{
     name:string,
     password:string,
     email:string,
@@ -26,10 +26,7 @@ const coachSchema = new Schema<ICoach>({
         type:Types.ObjectId,
         ref:"Team"
     },
-    experience:[{
-        type:Types.ObjectId,
-        ref:"CoachExperience"
-    }],
+    experience:[{type:Array}],
     comments:[{
         type:Types.ObjectId,
         ref:"Comments"
