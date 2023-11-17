@@ -11,7 +11,7 @@ export interface ICoach{
     team:any,//team id
     experience:[],
     comments:[],
-    isApproved:Boolean
+    approved:string
 };
 
 const coachSchema = new Schema<ICoach>({
@@ -31,11 +31,12 @@ const coachSchema = new Schema<ICoach>({
         type:Types.ObjectId,
         ref:"Comments"
     }],
-    isApproved:{
-        type:Boolean,
-        default:false
+    approved:{
+        type:String,
+        enum:["declined","pending","approved"],
+        default:"pending"
     }
-});
+},{timestamps:true});
 
 const Coach = model<ICoach>("Coach",coachSchema);
 

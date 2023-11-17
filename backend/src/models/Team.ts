@@ -1,24 +1,22 @@
 import {Schema,model,Types} from 'mongoose';
 
 export interface ITeam{
-   teamName:string,
+   name:string,
    logo:string,
-   coach:any,//coach id
-   players:[],//player id
+   coach:any,//ref coach
+   players:[],//ref player
    staff:[],
-   stadium:string,//make own model
-   location:string,
-   stadiumCapacity:number,
-   teamWealth:number,
-   transfers:[],
-   teamNews:[],
-   teamFixure:[],
+   stadium:Array<any>,//ref stadium model
+   net_worth:number,
+   transfers:[],//make own modal
+   team_news:[],
+   team_fixure:[],
    fans:[],
-   isTeamApproved:boolean,
+   approved:string,
 };
 
 const teamSchema = new Schema<ITeam>({
-    teamName:{type:String,required:true},
+    name:{type:String,required:true},
     logo:{type:String,required:true},
     coach:{
         type:Types.ObjectId,
@@ -26,15 +24,18 @@ const teamSchema = new Schema<ITeam>({
     },
     players:[{type:Array}],
     staff:[{type:Array}],
-    stadium:{type:String},
-    stadiumCapacity:{type:Number,default:0},
-    transfers:[{
-        type:Array
+    stadium:[{
+        type:Types.ObjectId,
+        ref:"Stadium"
     }],
-    teamNews:[{
+    transfers:[{
+        type:Types.ObjectId,
+        ref:"Transfers"
+    }],
+    team_news:[{
         type:Array,
     }],
-    teamFixure:[{
+    team_fixure:[{
         type:Types.ObjectId,
         ref:"Fixture"
     }],
@@ -42,11 +43,12 @@ const teamSchema = new Schema<ITeam>({
         type:Types.ObjectId,
         ref:"User"
     }],
-    isTeamApproved:{
-        type:Boolean,
-        default:false
+    approved:{
+        type:String,
+        enum:["declined","pending","approved"],
+        default:"pending"
     }
-});
+},{timestamps:true});
 
 const Team = model<ITeam>("Team",teamSchema);
 

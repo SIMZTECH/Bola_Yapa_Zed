@@ -5,7 +5,7 @@ export interface IFixure{
     category:string,
     awayTeam:any,//will contain the team deatils
     homeTeam:any,//will contain the team deatils
-    isMatchApproved:boolean
+    approved:string
 };
 
 const fixtureSchema = new Schema<IFixure>({
@@ -23,11 +23,13 @@ const fixtureSchema = new Schema<IFixure>({
         type:Types.ObjectId,
         ref:"Team"
     },
-    isMatchApproved:{type:Boolean,default:false}
+    approved:{
+        type:String,
+        enum:["declined","pending","approved"],
+        default:"pending"
+    }
    
-},
-{timestamps:true}
-);
+},{timestamps:true});
 
 const Fixture = model<IFixure>("Fixture",fixtureSchema);
 

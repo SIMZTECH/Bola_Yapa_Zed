@@ -11,7 +11,7 @@ export interface IUser{
     team:any,//team id
     comments:Array<string>,
     analytics:Array<number>,
-    isApproved:Boolean
+    isApproved:string
 };
 
 const userSchema = new Schema<IUser>({
@@ -39,11 +39,12 @@ const userSchema = new Schema<IUser>({
         ref:"Analytics"
     }],
     isApproved:{
-        type:Boolean,
-        default:false
+        type:String,
+        enum:["declined","pending","approved"],
+        default:"pending"
     }
 
-});
+},{timestamps:true});
 
 const User = model<IUser>("User",userSchema);
 
