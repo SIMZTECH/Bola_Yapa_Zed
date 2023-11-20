@@ -8,6 +8,8 @@ import { authenticate,restrict } from "./src/auth/AuthVerify";
 
 // routes
 import authRoute from './src/routes/AuthRoute';
+import teamRoute from './src/routes/TeamRoute';
+import coachRoute from './src/routes/CoachRoute';
 
 dotenv.config();
 
@@ -31,6 +33,8 @@ app.use(cors(corsOptions));
 // routes
 
 app.use("/auth/api/v1",authRoute);
+app.use("/team/api/v1",teamRoute);
+app.use("/coach/api/v1",coachRoute);
 
 
 

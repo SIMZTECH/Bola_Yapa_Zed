@@ -3,23 +3,23 @@ import {HydratedDocument} from "mongoose";
 import Coach,{ICoach} from "../models/Coach";
 import {Request,Response} from 'express';
 import Team from "../models/Team";
-import User,{IUser} from "../models/User";
+import User from "../models/User";
 
 
-export const getUserProfile = async(req:Request,res:Response)=>{
+export const getCoachProfile = async(req:Request,res:Response)=>{
     try {
-        const _foundUser:HydratedDocument<IUser> = await User.findById(req.userId);
-        if(_foundUser){
+        const _foundCoach:HydratedDocument<ICoach> = await Coach.findById(req.params.coachId);
+        if(_foundCoach){
             res.status(200).json({
                 status:true,
                 message:"record retrived successfully",
-                data:_foundUser
+                data:_foundCoach
             })
         }else{
             res.status(404).json({
                 status:false,
                 message:"No record was found",
-                data:_foundUser
+                data:_foundCoach
             })
         }
     } catch (error) {
@@ -57,14 +57,16 @@ export const getAllCoachesProfile = async(req:Request,res:Response)=>{
 };
 
 
-export const updateUserProfile = async(req:Request,res:Response)=>{
+export const updateCoachProfile = async(req:Request,res:Response)=>{
+
     try {
-       const _foundUser:HydratedDocument<IUser> = await User.findById(req.userId);
-       if(_foundUser){
-        res.status(200).json({
-            status:true,
-            message:"Team updated successfully"
-        })
+        const _updatedCoach:HydratedDocument<ICoach> = await Coach.findByIdAndUpdate(req.params.coachId,{$set:req.body},{new:true});
+
+       if(_updatedCoach){
+            res.status(200).json({
+                status:true,
+                message:"Coach updated successfully!!",
+            })
        }
     } catch (error) {
         res.status(500).json({
@@ -119,6 +121,7 @@ export const employCoach = async(req:Request,res:Response)=>{
 
         // update coach with team
         const _foundCoach = await Coach.findById(req.params.coachId);
+
 
       }
 

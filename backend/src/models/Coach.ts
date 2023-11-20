@@ -22,14 +22,17 @@ const coachSchema = new Schema<ICoach>({
     dob:{type:String},
     role:{type:String},
     photo:{type:String},
-    team:{
+    team:{//note this will be updated from the owner of the model
         type:Types.ObjectId,
         ref:"Team"
     },
-    experience:[{type:Array}],
+    experience:[{
+        type:Types.ObjectId,
+        ref:"CoachExperience"
+    }],
     comments:[{
         type:Types.ObjectId,
-        ref:"Comments"
+        ref:"Posts"
     }],
     approved:{
         type:String,

@@ -1,6 +1,6 @@
 import {Schema,model,Types} from 'mongoose';
 
-export interface IComment{
+export interface IPost{
     user:any,
     coach:any,
     message:string,
@@ -9,7 +9,7 @@ export interface IComment{
     love:number 
 };
 
-const CommentsSchema = new Schema<IComment>({
+const PostSchema = new Schema<IPost>({
     user:{
         type:Types.ObjectId,
         ref:"User"
@@ -35,6 +35,6 @@ const CommentsSchema = new Schema<IComment>({
 {timestamps:true}
 );
 
-const Comments = model<IComment>("Comments",CommentsSchema);
+const Post = model<IPost>("Post",PostSchema);
 
-export default Comments;
+export default Post;

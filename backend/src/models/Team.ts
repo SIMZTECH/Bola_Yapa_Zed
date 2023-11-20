@@ -1,5 +1,21 @@
 import {Schema,model,Types} from 'mongoose';
 
+export type ITeamType={
+    name:string,
+    logo:string,
+    coach:any,//ref coach
+    players:[],//ref player
+    staff:[],
+    stadium:Array<any>,//ref stadium model
+    net_worth:number,
+    transfers:[],//make own modal
+    team_news:[],
+    team_fixure:[],
+    fans:[],
+    approved:string,
+    admin:Types.ObjectId
+ };
+
 export interface ITeam{
    name:string,
    logo:string,
@@ -11,12 +27,13 @@ export interface ITeam{
    transfers:[],//make own modal
    team_news:[],
    team_fixure:[],
-   fans:[],
+   fans:Array<Types.ObjectId>,
+   admin:[],
    approved:string,
 };
 
 const teamSchema = new Schema<ITeam>({
-    name:{type:String,required:true},
+    name:{type:String,required:true,unique:true},
     logo:{type:String,required:true},
     coach:{
         type:Types.ObjectId,
@@ -39,6 +56,10 @@ const teamSchema = new Schema<ITeam>({
         type:Types.ObjectId,
         ref:"Fixture"
     }],
+    admin:[{
+        type:Types.ObjectId,
+        ref:"User"
+    }],
     fans:[{
         type:Types.ObjectId,
         ref:"User"
@@ -49,6 +70,22 @@ const teamSchema = new Schema<ITeam>({
         default:"pending"
     }
 },{timestamps:true});
+// advanced querries for manipulating the model
+//populate admin details
+teamSchema.pre("find",function(next){
+    this.populate([{
+        path:"admin",
+        // model:'User'
+        select:"name approved"
+    },
+    {
+        path:"fans",
+        // model:'User'
+        select:"name approved"
+    }]);
+
+    next();
+});
 
 const Team = model<ITeam>("Team",teamSchema);
 
