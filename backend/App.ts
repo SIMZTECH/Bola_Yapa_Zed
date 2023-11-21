@@ -10,6 +10,8 @@ import { authenticate,restrict } from "./src/auth/AuthVerify";
 import authRoute from './src/routes/AuthRoute';
 import teamRoute from './src/routes/TeamRoute';
 import coachRoute from './src/routes/CoachRoute';
+import fansRoute from './src/routes/FanRoute';
+import stadiumRoute from './src/routes/StadiumRoute';
 
 dotenv.config();
 
@@ -35,6 +37,8 @@ app.use(cors(corsOptions));
 app.use("/auth/api/v1",authRoute);
 app.use("/team/api/v1",teamRoute);
 app.use("/coach/api/v1",coachRoute);
+app.use("/fan/api/v1",fansRoute);
+app.use("/stadium/api/v1",stadiumRoute);
 
 
 

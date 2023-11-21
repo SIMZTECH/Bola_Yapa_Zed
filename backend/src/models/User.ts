@@ -1,3 +1,4 @@
+import { NextFunction } from 'express';
 import {Schema,model,Types} from 'mongoose';
 
 export interface IUser{

@@ -1,3 +1,4 @@
+import { NextFunction } from 'express';
 import {Schema,model,Types} from 'mongoose';
 
 export interface IStadium{
@@ -27,6 +28,6 @@ const stadiumSchema = new Schema<IStadium>({
     }
 },{timestamps:true});
 
-const Stadium = model<IStadium>("Team",stadiumSchema);
+const Stadium = model<IStadium>("Stadium",stadiumSchema);
 
 export default Stadium;

@@ -22,7 +22,7 @@ export interface ITeam{
    coach:any,//ref coach
    players:[],//ref player
    staff:[],
-   stadium:Array<any>,//ref stadium model
+   stadium:Array<Types.ObjectId>,//ref stadium model
    net_worth:number,
    transfers:[],//make own modal
    team_news:[],

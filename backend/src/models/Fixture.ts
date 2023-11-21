@@ -5,7 +5,8 @@ export interface IFixure{
     category:string,
     awayTeam:any,//will contain the team deatils
     homeTeam:any,//will contain the team deatils
-    approved:string
+    approved:string,
+    stadium:any
 };
 
 const fixtureSchema = new Schema<IFixure>({
@@ -22,6 +23,10 @@ const fixtureSchema = new Schema<IFixure>({
     awayTeam:{
         type:Types.ObjectId,
         ref:"Team"
+    },
+    stadium:{
+        type:Types.ObjectId,
+        ref:'Stadium'
     },
     approved:{
         type:String,
