@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base{
+
+
+
+}
+
+
+@layer components{
+    .left_block{
+        @apply bg-[url('./assets/images/bg_img01.png')] bg-no-repeat bg-cover 
+    }
+    .register{
+        @apply  w-full h-[100vh] 
+
+    }
+
+
+
+}
+
+@layer utilities{
+
+
+
+
+}
