@@ -4,6 +4,9 @@
 
 
 @layer base{
+    section{
+        @apply lg:px-[70px] sm:px-[30px] md:px-[40px] px-2
+    }
 
 
 
@@ -16,16 +19,25 @@
     }
     .register{
         @apply  w-full h-[100vh] 
-
     }
-
-
+    .subheading{
+        @apply text-textGreenColor leading-7 text-[15px] sm:text-[18px]
+    }
+    .layout_main_container{
+        @apply sm:px-[55px] px-[20px] py-3 md:pt-[30px] pb-[30px] w-full sm:max-w-[1000px] mx-auto md:mt-10 mt-8
+    }
+    .container{
+        @apply max-w-[1050px] mx-auto pt-[55px] px-[20px] w-full
+    }
 
 }
 
 @layer utilities{
 
 
+}
 
+ @media only screen and (max-width:768px) {
+   
 
 }

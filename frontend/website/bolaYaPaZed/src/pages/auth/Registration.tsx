@@ -1,8 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {useState} from 'react';
 import { IoIosFootball } from "react-icons/io";
 import { FaGoogle,FaTwitter,FaFacebook} from "react-icons/fa";
 import bg_img02 from '../../assets/images/bg_img03.png';
 import footballer from '../../assets/images/barbra_banda01.png';
+import {Link,useNavigate} from 'react-router-dom';
+import { AUTH_BASE_URL } from '../../config';
+import {HashLoader}  from 'react-spinners';
+import { toast } from 'react-toastify';
 
 type formDataType = {
   name:string,
@@ -14,7 +19,7 @@ type formDataType = {
 };
 
 function Registration(){
-
+  
   const [formData,setFormData] = useState<formDataType>({
     name:'',
     email:'',
@@ -23,31 +28,62 @@ function Registration(){
     gender:'',
     policies:'false'
   });
+  const [loading,setLoading] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   // methods
-  const inputChangeHandler=async(e)=>{
+  const inputChangeHandler=async(e:any)=>{
     setFormData({...formData,[e.target?.name]:e.target?.value});
     if(e.target?.checked){
       setFormData({...formData,[e.target?.name]:e.target?.checked});
     }
   };
 
-  const submitHandler=async(e)=>{
+  const submitHandler=async(e:any)=>{
     e.preventDefault();
 
-    console.log(JSON.stringify(formData));
+    setLoading(true);
+    try {
+      const res = await fetch(`${AUTH_BASE_URL}/auth/api/v1/register-user`,{
+        method:"post",
+        headers:{
+          "Content-Type":"Application/json"
+        },
+        body:JSON.stringify(formData)
+      });
+
+      const results = await res.json();
+
+      console.log(results,"retrived data");
+
+
+      if(!res.ok){
+        throw new Error(results.message);
+      }
+      setLoading(false);
+      toast(results.message);
+
+      // navigate to login screen
+      navigate("/login");
+      
+    } catch (error:any) {
+      setLoading(false);
+      toast(error.message);
+    }
+
   };
 
 
   return (
-    <div className="pt-14 register relative h-[100vh]">
-      <figure className='absolute -z-10 top-0 bottom-0 w-full h-[100vh]'>
+    <div className="md:pt-12 pt-5 register relative">
+      <figure className='absolute -z-10 top-0 bottom-0 left-0 w-full h-full'>
         <img src={bg_img02} className='h-full w-full object-fill'/>
       </figure>
-      <div className="  w-full md:max-w-4xl mx-auto ">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-4 bg-white rounded-lg">
+      <div className="  w-full sm:max-w-4xl mx-auto p-3">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white rounded-lg">
           {/* left */}
-          <div className="w-full bg-[#07170a] bg-opacity-90 pb-2 left_block rounded-tl-lg rounded-bl-lg">
+          <div className="w-full bg-[#07170a] hidden sm:block bg-opacity-90 sm:pb-2 left_block rounded-tl-lg rounded-bl-lg">
             <div className="flex flex-col pt-5 px-10 space-y-3">
               <div className="w-[45px] h-[45px] bg-[#47694c] flex flex-col justify-center items-center rounded-md">
                 <span className="text-[12px] font-medium text-white">
@@ -76,21 +112,26 @@ function Registration(){
               </span>
             </div>
           </div>
+
           {/* right */}
           <div className="col-span-2 pt-2 pb-3">
-            <div className="w-full text-end px-10 mt-1">
+            <div className="w-full text-end sm:px-10 pr-3 mt-1">
               <span className=" font-normal text-[15px] w-full">
-                Already a member?{" "}
-                <a className=" text-blue-500 cursor-pointer">Sign in</a>
+                Already a member?
+                <Link
+                  to={"/login"} 
+                  className=" text-blue-500 cursor-pointer"> 
+                  Sign in
+                </Link>
               </span>
             </div>
             {/* form */}
-            <div className="mt-5 pl-20 space-y-2 pr-8">
-              <span className="text-[16px] font-medium text-textDarkGreenColor">
+            <div className="mt-5 px-3 sm:pl-20 space-y-2 sm:pr-8">
+              <span className="text-[16px] w-full font-medium text-textDarkGreenColor">
                 Sign up to bola
               </span>
               <div className="w-full">
-                <div className="w-[90%] flex items-center justify-between gap-3">
+                <div className="sm:w-[90%] flex items-center justify-between gap-3">
                   {/* google btn */}
                   <button className="flex w-[80%] items-center justify-center bg-textDarkGreenColor text-white px-2 h-[30px] rounded-sm gap-3 cursor-pointer">
                     <span>
@@ -112,7 +153,7 @@ function Registration(){
               </div>
               {/* line */}
               <div className="w-full pt-3">
-                <div className="w-[90%] relative pt-2 pb-2">
+                <div className="sm:w-[90%] relative pt-2 pb-2">
                   <span className="w-full h-[0.5px] absolute bg-textDarkGreenColor mx-auto top-1/2 transform -translate-y-1/2"></span>
                   <h1 className="absolute text-[19px] left-1/2 top-1/4 transform -translate-x-1/2 -translate-y-1/2 bg-white z-10 font-medium px-1 text-textDarkGreenColor">
                     or
@@ -120,12 +161,13 @@ function Registration(){
                 </div>
               </div>
               <div className="w-full mt-3">
-                <form onSubmit={submitHandler} className="w-[90%] space-y-2">
+                <form onSubmit={submitHandler} className="sm:w-[90%] space-y-2">
                   <div className="w-full flex flex-col gap-1">
                     <label htmlFor="#fullName">Full Name</label>
                     <input
                       placeholder="Enter your full name"
                       value={formData.name}
+                      required
                       onChange={inputChangeHandler}
                       id="fullName"
                       name="name"
@@ -149,6 +191,7 @@ function Registration(){
                       placeholder="Password"
                       value={formData.password}
                       onChange={inputChangeHandler}
+                      required
                       id="password"
                       name="password"
                       className=" placeholder:text-textDarkGreenColor text-[14px] focus:outline-none w-full px-2 py-0 h-[30px] rounded-sm bg-textDarkGreenColor bg-opacity-50"
@@ -187,7 +230,7 @@ function Registration(){
                     </div>
                   </div>
                   {/* check box */}
-                  <div className='flex items-start gap-8 pt-3'>
+                  <div className='flex items-start gap-4 sm:gap-8 pt-3'>
                     <input 
                       type='checkbox'
                       name='policies'
@@ -198,20 +241,23 @@ function Registration(){
                     />
                     <p className='text-[13px] text-justify'>
                       Creating an Account means you are okay with our 
-                      <span className=' text-blue-500 font-normal'> Terms of Service,Privacy Policy</span> qnd
+                      <span className=' text-blue-500 font-normal'> Terms of Service,Privacy Policy</span> and
                       our default <span className='text-blue-500 font-normal'>Notification Setings.</span> 
                     </p>
                   </div>
-                  <button className=' bg-textDarkGreenColor text-white h-[30px] w-[50%] rounded-sm text-[15px]'>Create Account</button>
+                  <button className=' bg-textDarkGreenColor text-white h-[30px] w-full sm:w-[50%] rounded-sm text-[15px] flex items-center justify-center'>
+                    {loading?<HashLoader size={18} color='white'/>:`Create Account`}
+                  </button>
                 </form>
                 {/* rights */}
-                <p className=' text-[12px] mt-5 w-[70%]'>
+                <p className=' text-[12px] mt-5 sm:w-[70%]'>
                   This site is protected reCAPTCHA and the Google
                   <span className=' text-blue-400 font-normal'> Privacy Policy</span > and <span className=' text-blue-400 font-normal'>Terms of Service apply.</span>
                 </p>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>

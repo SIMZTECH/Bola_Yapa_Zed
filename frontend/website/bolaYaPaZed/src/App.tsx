@@ -1,13 +1,11 @@
-import React from 'react';
-import Login from './pages/auth/Login';
-import Registration from './pages/auth/Registration';
-// import bg from './assets/images/bg_img01.png'
-
+// import AdminLayout from "./layouts/AdminLayout"
+import AuthenticationRoute from "./routes/AuthenticationRoute";
+import "./App.css";
 function App() {
   return (
    <>
-    <Registration />
-
+    <AuthenticationRoute/>
+    {/* <AdminLayout /> */}
    </>
   )
 }
