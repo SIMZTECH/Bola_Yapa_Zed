@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {useState,useEffect,useMemo,useCallback} from 'react';
-import {AUTH_BASE_URL, token} from '../config';
+import {AUTH_BASE_URL} from '../config';
 import { adminModelType } from '../types/Admin';
 type adminData={
   data:adminModelType
 };
 
-export const FetchData = (url:string)=>{
+export const FetchData = (url:string,token:string)=>{
     const [userData,setUserData] = useState(null);
     const [error,setError] = useState('');
     const [loading,setLoading] = useState<boolean>(false);
@@ -36,11 +36,9 @@ export const FetchData = (url:string)=>{
     }, [url]);
 
    useEffect(()=>{
-    
-    setTimeout(() => {
-      fetchData();
-    },20);
 
+
+    fetchData();
     // async function fetchDataHandler() {
     //   setLoading(true);
     //  try {

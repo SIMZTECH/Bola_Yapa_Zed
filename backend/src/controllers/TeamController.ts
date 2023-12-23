@@ -69,11 +69,15 @@ export const createTeam = async(req:Request,res:Response)=>{
 
             // assign admin with team and also team with admin
             await Team.findByIdAndUpdate(_savedTeam._id,{$push:{admin:_foundUser._id}});
-            await User.findByIdAndUpdate(_foundUser._id,{$set:{team:_savedTeam._id}},{new:true});
+            const updatedUser = await User.findByIdAndUpdate(_foundUser._id,{$set:{team:_savedTeam._id}},{new:true})
+            .populate({path:"team",model:Team});
+
+            console.log(updatedUser);
 
             res.status(200).json({
                 status:true,
                 message:"new team has been added succssfully!!!",
+                data:updatedUser //updated data
             })
         }else{
             res.status(401).json({
@@ -200,6 +204,16 @@ export const selectTeam = async(req:Request,res:Response)=>{
             if(_foundTeam){
                 await Coach.findByIdAndUpdate(user._id,{$set:{team:_foundTeam._id}});
                 res.status(200).json({
+                    status:true,
+                    message:"Team selected successfully",
+                    data:_foundTeam
+                });
+            }
+        }else if(!user.team&&user.role=="admin"){
+            const _foundTeam = await Team.findByIdAndUpdate(req.params.teamId,{$set:{coach:req.userId}});
+            if(_foundTeam){
+                await User.findByIdAndUpdate(user._id,{$set:{team:_foundTeam._id}});
+                    res.status(200).json({
                     status:true,
                     message:"Team selected successfully",
                     data:_foundTeam

@@ -4,6 +4,7 @@ import Profile from '../pages/admin/Profile';
 import Fixtures from '../pages/admin/Fixtures';
 import Settings from '../pages/admin/Settings';
 import CreateTeam from '../pages/admin/CreateTeam';
+import AddFixture from '../pages/admin/AddFixture';
 
 
 function MainRoute(){
@@ -15,6 +16,7 @@ function MainRoute(){
             <Route path='/fixtures' element={<Fixtures/>} />
             <Route path='/my-account/settings' element={<Settings/>} />
             <Route path='/add/team' element={<CreateTeam/>} />
+            <Route path='/fixtures/add-fixture' element={<AddFixture/>} />
         </Routes>
     )
 }

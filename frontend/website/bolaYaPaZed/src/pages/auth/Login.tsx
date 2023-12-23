@@ -87,10 +87,10 @@ function Login() {
         <img src={bg_img02} className='h-full w-full object-fill'/>
       </figure>
       <div className='pt-14'>
-      <div className="w-full px-2 max-w-sm mx-auto">
-        <div className="sm:px-5 px-2 py-1 bg-white rounded-md">
+      <div className="w-full px-1 max-w-[350px] mx-auto">
+        <div className="sm:px-3 px-2 py-1 bg-white rounded-md">
           <div className="flex items-center justify-center flex-col">
-            <figure className="w-[130px] h-[100px]">
+            <figure className="w-[100px] h-[80px]">
               <img src={bootImg} />
             </figure>
             <div className=" text-center w-[150px] text-[22px] leading-6 mt-2 text-lightPrimaryText">
@@ -98,7 +98,7 @@ function Login() {
               <br /> <span>ZED</span>
             </div>
           </div>
-          <form className='py-5' onSubmit={submitHandler}>
+          <form className='py-4' onSubmit={submitHandler}>
             <div className="w-full flex flex-col mb-4">
               <input
                 placeholder="Your Email Address"
@@ -108,7 +108,7 @@ function Login() {
                 type='email'
                 id="emailAddress"
                 name="email"
-                className=" placeholder:text-textDarkGreenColor text-[14px] focus:outline-none w-full px-2 py-0 h-[35px] rounded-sm bg-textDarkGreenColor bg-opacity-50"
+                className=" placeholder:text-textDarkGreenColor text-[14px] focus:outline-none w-full px-2 py-0 h-[35px] rounded-sm bg-textDarkGreenColor bg-opacity-20"
               />
             </div>
             <div className="w-full flex flex-col mb-4">
@@ -120,7 +120,7 @@ function Login() {
                 type='password'
                 id="password"
                 name="password"
-                className=" placeholder:text-textDarkGreenColor text-[14px] focus:outline-none w-full px-2 py-0 h-[35px] rounded-sm bg-textDarkGreenColor bg-opacity-50"
+                className=" placeholder:text-textDarkGreenColor text-[14px] focus:outline-none w-full px-2 py-0 h-[35px] rounded-sm bg-textDarkGreenColor bg-opacity-20"
               />
             </div>
             <button className=" bg-textDarkGreenColor text-white h-[35px] w-full rounded-sm text-[15px] mb-3 flex items-center justify-center">
@@ -137,8 +137,8 @@ function Login() {
               <p className="text-[16px] text-justify text-lightPrimaryText">Remember Me</p>
             </div>
           </form>
-          <div className=" font-normal text-[14px] w-full mt-4 mb-3 text-center text-lightPrimaryText">
-            Don't have an Account?
+          <div className=" font-normal text-[14px] w-full mb-3 text-center text-lightPrimaryText">
+            Don't have an Account?{" "}
             <Link to={"/register"} className=" text-blue-500 cursor-pointer">
               Register
             </Link>
@@ -146,6 +146,10 @@ function Login() {
         </div>
       </div>
 
+      </div>
+      {/* footer */}
+      <div className='absolute bottom-16 w-full flex justify-center'>
+        <p className='text-[11px] text-textDarkGreenColor'>All Rights Reserved @{new Date().getFullYear()}</p>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import {Schema,model,Types} from 'mongoose';
 
 export interface IFixure{
     date:string,
+    time:string,
     category:string,
     awayTeam:any,//will contain the team deatils
     homeTeam:any,//will contain the team deatils
@@ -11,6 +12,7 @@ export interface IFixure{
 
 const fixtureSchema = new Schema<IFixure>({
     date:{type:String},
+    time:{type:String},
     category:{
         type:String,
         enum:["derby","regular","madalas"],
@@ -25,8 +27,8 @@ const fixtureSchema = new Schema<IFixure>({
         ref:"Team"
     },
     stadium:{
-        type:Types.ObjectId,
-        ref:'Stadium'
+        type:String,
+        // ref:'Stadium'
     },
     approved:{
         type:String,
@@ -35,6 +37,9 @@ const fixtureSchema = new Schema<IFixure>({
     }
    
 },{timestamps:true});
+
+// create index for searching
+fixtureSchema.index({'$**': 'text'});
 
 const Fixture = model<IFixure>("Fixture",fixtureSchema);
 

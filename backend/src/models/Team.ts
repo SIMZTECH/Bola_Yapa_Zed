@@ -13,6 +13,8 @@ export type ITeamType={
     team_fixure:[],
     fans:[],
     approved:string,
+    category:string,
+    description:string,
     admin:Types.ObjectId
  };
 
@@ -29,12 +31,14 @@ export interface ITeam{
    team_fixure:[],
    fans:Array<Types.ObjectId>,
    admin:[],
+   category:string,
+   description:string,
    approved:string,
 };
 
 const teamSchema = new Schema<ITeam>({
     name:{type:String,required:true,unique:true},
-    logo:{type:String,required:true},
+    logo:{type:String},
     coach:{
         type:Types.ObjectId,
         ref:"Coach"
@@ -60,6 +64,12 @@ const teamSchema = new Schema<ITeam>({
         type:Types.ObjectId,
         ref:"User"
     }],
+    category:{
+        type:String,
+        enum:["Super League","Championship","League One","League Two","Madalaz"],
+        default:"Super League"
+    },
+    description:{type:String},
     fans:[{
         type:Types.ObjectId,
         ref:"User"

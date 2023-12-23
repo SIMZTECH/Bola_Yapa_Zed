@@ -4,11 +4,17 @@ import Coach,{ICoach} from "../models/Coach";
 import {Request,Response} from 'express';
 import Team from "../models/Team";
 import User,{IUser} from "../models/User";
+import Comments from "../models/Comments.";
 
 
 export const getUserProfile = async(req:Request,res:Response)=>{
+
     try {
-        const _foundUser:HydratedDocument<IUser> = await User.findById(req.userId);
+        const _foundUser = await User.findById(req.userId)
+        .populate([
+            {path:"team",model:Team},
+            {path:"comments",model:Comments}])
+        .select("-password");
         if(_foundUser){
             res.status(200).json({
                 status:true,
@@ -26,7 +32,7 @@ export const getUserProfile = async(req:Request,res:Response)=>{
         res.status(500).json({
             status:false,
             message:"something went wrong,try again",
-            data:error
+            error:error.message
         })
     }
 };
@@ -59,8 +65,12 @@ export const getAllCoachesProfile = async(req:Request,res:Response)=>{
 
 export const updateUserProfile = async(req:Request,res:Response)=>{
     try {
+       
        const _foundUser:HydratedDocument<IUser> = await User.findById(req.userId);
        if(_foundUser){
+        // update logic
+    
+
         res.status(200).json({
             status:true,
             message:"Team updated successfully"

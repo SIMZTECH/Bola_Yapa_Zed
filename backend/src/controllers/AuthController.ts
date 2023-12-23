@@ -4,6 +4,7 @@ import Coach,{ICoach} from "../models/Coach";
 import {Response,Request} from "express";
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import Team from "../models/Team";
 
 // check user existance
 const checkUserExistance=async(req:Request):Promise<{}>=>{
@@ -25,7 +26,7 @@ const checkUserExistance=async(req:Request):Promise<{}>=>{
 
 // save user data
 const saveUser=async(req:Request)=>{
-    const {name,role,email,password} = req.body;
+    const {name,role,email,password,gender,policies} = req.body;
 
     var newUser=null;
 
@@ -39,7 +40,9 @@ const saveUser=async(req:Request)=>{
                 name:name,
                 email:email,
                 password:encryptedPassword,//add encryption
-                role:role
+                role:role,
+                gender:gender,
+                agreement:policies
             });
         }
 
@@ -48,7 +51,9 @@ const saveUser=async(req:Request)=>{
                 name:name,
                 email:email,
                 password:encryptedPassword,//add encryption
-                role:role
+                role:role,
+                gender:gender,
+                agreement:policies
             });
         }
         
@@ -110,8 +115,12 @@ export const userLogin =async(req:Request,res:Response)=>{
 
     try {
         // find if user(fan,admin) or manager(coach)
-        const _foundUser = await User.findOne({email:email});
-        const _foundCoach = await Coach.findOne({email:email});
+        const _foundUser = await User.findOne({email:email})
+        .populate({path:"team",model:Team});
+        
+        const _foundCoach = await Coach.findOne({email:email})
+        .populate({path:"team",model:Team});
+        
         if(_foundUser){
             user = _foundUser;
         }
@@ -148,7 +157,7 @@ export const userLogin =async(req:Request,res:Response)=>{
         res.status(500).json({
             status:false,
             message:"server is down,try again later",
-            data:error
+            data:error.message
         });
     }
 };

@@ -12,6 +12,7 @@ const router = express.Router({mergeParams:true});
 
 
 router.post("/create-stadium",authenticate,restrict(["admin"]),createStadium);
+router.get("/get-all-stadiums",authenticate,restrict(["admin"]),getAllStadiums);
 // router.get("/get-allfootball-fans",getAllFootballFans);
 
 

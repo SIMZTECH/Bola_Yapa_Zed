@@ -41,7 +41,7 @@ function NavBar() {
             <Link to={"profile/me"}>
               <figure className="w-[65px] h-[65px] rounded-full cursor-pointer">
                 {user?.photo && (
-                  <img src={profile_img01} className="w-full h-full" />
+                  <img src={user?.photo} className="w-full h-full rounded-full" />
                 )}
                 {!user?.photo && (
                   <div className="w-full h-full bg-white rounded-full flex items-center justify-center cursor-pointer">
@@ -54,7 +54,7 @@ function NavBar() {
               </figure>
             </Link>
             <div className="w-full flex flex-col items-center">
-              <div className=" leading-5 mb-2 text-center">
+              <div className=" leading-5 mb-2 text-center mt-2">
                 <h3 className="text-[17px] text-lightPrimaryText font-medium">
                   {user?.name}
                 </h3>
@@ -65,7 +65,7 @@ function NavBar() {
               {/* check if team exists */}
               {user?.team ? (
                 <div className="flex flex-col items-center">
-                  <figure className="w-[25px] h-[25px] rounded-full">
+                  <figure className="w-[35px] h-[35px] rounded-full">
                     <img src={user.team?.logo} className="w-full h-full rounded-full"/>
                   </figure>
                   <p className="text-[10px] text-textDarkGreenColor">{user.team?.name.toLowerCase()}</p>

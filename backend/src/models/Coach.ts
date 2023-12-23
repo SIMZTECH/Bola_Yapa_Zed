@@ -7,8 +7,10 @@ export interface ICoach{
     phone:number,
     dob:string,
     role:string,
+    gender:string,
     photo:string,
     team:any,//team id
+    agreement:string,
     experience:[],
     comments:[],
     approved:string
@@ -21,11 +23,13 @@ const coachSchema = new Schema<ICoach>({
     phone:{type:Number},
     dob:{type:String},
     role:{type:String},
+    gender:{type:String},
     photo:{type:String},
     team:{//note this will be updated from the owner of the model
         type:Types.ObjectId,
         ref:"Team"
     },
+    agreement:{type:String},
     experience:[{
         type:Types.ObjectId,
         ref:"CoachExperience"

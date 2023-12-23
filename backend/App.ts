@@ -12,6 +12,9 @@ import teamRoute from './src/routes/TeamRoute';
 import coachRoute from './src/routes/CoachRoute';
 import fansRoute from './src/routes/FanRoute';
 import stadiumRoute from './src/routes/StadiumRoute';
+import adminRoute from './src/routes/AdminRoute';
+import userRoute from './src/routes/UserRoute';
+import fixtureRoute from './src/routes/FixtureRoutes';
 
 dotenv.config();
 
@@ -39,6 +42,9 @@ app.use("/team/api/v1",teamRoute);
 app.use("/coach/api/v1",coachRoute);
 app.use("/fan/api/v1",fansRoute);
 app.use("/stadium/api/v1",stadiumRoute);
+app.use("/admin/api/v1",adminRoute);
+app.use("/users/api/v1",userRoute);
+app.use("/fixture/api/v1",fixtureRoute);
 
 
 

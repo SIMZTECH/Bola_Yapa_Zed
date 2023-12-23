@@ -8,8 +8,10 @@ export interface IUser{
     phone:number,
     dob:string,
     role:string,
+    gender:string,
     photo:string,
     team:any,//team id
+    agreement:string,
     comments:Array<string>,
     analytics:Array<number>,
     approved:string
@@ -26,6 +28,7 @@ const userSchema = new Schema<IUser>({
         enum:["fan","admin"],
         default:"fan"
     },
+    gender:{type:String},
     photo:{type:String},
     team:{
         type:Types.ObjectId,
@@ -33,8 +36,9 @@ const userSchema = new Schema<IUser>({
     },
     comments:[{
         type:Types.ObjectId,
-        ref:"Post"
+        ref:"Comments"
     }],
+    agreement:{type:String},
     analytics:[{
         type:Types.ObjectId,
         ref:"Analytics"

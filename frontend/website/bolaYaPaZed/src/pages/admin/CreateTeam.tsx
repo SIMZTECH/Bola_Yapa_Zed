@@ -12,6 +12,7 @@ import ClipLoader from 'react-spinners/ClipLoader';
 import { useNavigate } from 'react-router-dom';
 import { authContext } from '../../contexts/AuthContext';
 import uploadCloudinary from '../../util/uploadCloudinary';
+import NoticeTag from '../../components/tags/NoticeTag';
 
 function CreateTeam() {
   const {dispatch,role,token,user} = React.useContext(authContext);
@@ -105,25 +106,19 @@ function CreateTeam() {
   };
 
   return (
-    <div>
-      <div className='px-3 sm:px-2'>
+    <section>
+      <div className="container">
         {!user?.team && (
-          <div className="layout_main_container bg-lightOrangeColor rounded-md shadow-sm mb-10">
+          <div className="layout_main_container rounded-md shadow-sm mb-10">
             {/* search team header */}
             <div>
               <div>
-                <h1 className="text-[18px] leading-8 text-textDarkGreenColor font-medium">
+                <h1 className="text-[18px] leading-8 text-textDarkGreenColor font-medium mb-4">
                   Add Team
                 </h1>
-                <p className="flex gap-1">
-                  <span className="text-[15px] text-textDarkGreenColor text-opacity-70">
-                    <IoInformationCircleOutline />
-                  </span>
-                  <span className="text-[11px] text-textDarkGreenColor text-opacity-70">
-                    Note: once a team is created, you'll become its admin
-                    instantly
-                  </span>
-                </p>
+                <NoticeTag
+                  text={`Note: once a team is created, you'll become its admin instantly`}
+                />
               </div>
               {/* form container */}
               <div className="sm:mt-8 mt-4">
@@ -146,15 +141,19 @@ function CreateTeam() {
                         name="logo"
                         onChange={handleFileUpload}
                         hidden
-                        accept='.png, .jpeg, .gif'
+                        accept=".png, .jpeg, .gif"
                       />
                       <label
-                        className="absolute  right-1 rounded-full shadow-md
-                     w-[45px] h-[45px] bg-white  bottom-2 cursor-pointer flex items-center justify-center"
+                        className="absolute  right-1 rounded-full shadow-md w-[45px] h-[45px] bg-white  
+                        bottom-2 cursor-pointer flex items-center justify-center"
                         htmlFor="#upload"
                       >
                         <span className="text-[25px] w-full h-full flex items-center justify-center text-red-700">
-                          {uploadLoader?<ClipLoader color='red' size={25}/>:<IoCloudUploadSharp />}
+                          {uploadLoader ? (
+                            <ClipLoader color="red" size={25} />
+                          ) : (
+                            <IoCloudUploadSharp />
+                          )}
                         </span>
                       </label>
                     </div>
@@ -168,7 +167,7 @@ function CreateTeam() {
                       >
                         Team Name
                       </label>
-                      <div className="b bg-whiteSmokeColor h-[35px] rounded-md shadow-sm">
+                      <div className="b bg-lightPrimaryText bg-opacity-5 h-[35px] rounded-md shadow-sm">
                         <input
                           type="text"
                           required
@@ -177,8 +176,7 @@ function CreateTeam() {
                           value={formData.name}
                           onChange={onChangeInputHandler}
                           placeholder="Provide team name"
-                          className="w-full h-full bg-transparent px-5 focus:outline-none  
-                     placeholder:text-[13px] placeholder:font-light"
+                          className="w-full h-full bg-transparent px-5 focus:outline-none placeholder:text-[13px] placeholder:font-light"
                         />
                       </div>
                     </div>
@@ -189,7 +187,7 @@ function CreateTeam() {
                       >
                         Net Worth
                       </label>
-                      <div className="b bg-whiteSmokeColor h-[35px] rounded-md shadow-sm">
+                      <div className="b bg-lightPrimaryText bg-opacity-5 h-[35px] rounded-md shadow-sm">
                         <input
                           type="text"
                           name="net_worth"
@@ -197,19 +195,18 @@ function CreateTeam() {
                           value={formData.net_worth}
                           onChange={onChangeInputHandler}
                           placeholder="$"
-                          className="w-full h-full bg-transparent px-5 
-                     placeholder:text-[13px] placeholder:font-light focus:outline-none "
+                          className="w-full h-full bg-transparent px-5 placeholder:text-[13px] placeholder:font-light focus:outline-none "
                         />
                       </div>
                     </div>
-                    <div className="space-y-1 mb-2">
+                    <div className="space-y-1 mb-2 ">
                       <label
                         htmlFor="#category"
                         className="text-[15px] text-textDarkGreenColor"
                       >
                         Category
                       </label>
-                      <div className="b bg-whiteSmokeColor h-[35px] rounded-md shadow-sm">
+                      <div className="b h-[35px] bg-lightPrimaryText bg-opacity-5 rounded-md shadow-sm">
                         <select
                           name="category"
                           id="#category"
@@ -233,7 +230,7 @@ function CreateTeam() {
                       >
                         Team Description
                       </label>
-                      <div className="b bg-whiteSmokeColor rounded-md shadow-sm">
+                      <div className="b bg-lightPrimaryText bg-opacity-5 rounded-md shadow-sm">
                         <textarea
                           rows={5}
                           name="description"
@@ -265,7 +262,7 @@ function CreateTeam() {
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 }
 
